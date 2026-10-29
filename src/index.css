@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --modern-black: #131313;
+    --bone: #E9E6DE;
+    --acid-lime: #D3FE89;
+    --signal-orange: #EB450E;
+    --deep-olive: #504718;
+  }
+
+  body {
+    background-color: #E9E6DE;
+    color: #131313;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+.font-anton {
+  font-family: 'Anton', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.font-oswald {
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.font-signature {
+  font-family: 'Caveat', cursive;
+}
+
+.font-mono-code {
+  font-family: 'Space Grotesk', monospace;
+}
+
+@keyframes marquee {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 55s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Custom delicate borders & styling */
+.editorial-border {
+  border-color: rgba(9, 32, 230, 0.25);
+}
+
+.vibrant-blue {
+  color: #0920e6;
+}
+
+.bg-vibrant-blue {
+  background-color: #0920e6;
+}
