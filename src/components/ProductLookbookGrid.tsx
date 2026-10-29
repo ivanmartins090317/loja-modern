@@ -26,12 +26,12 @@ export const ProductLookbookGrid: React.FC<ProductLookbookGridProps> = ({
           {/* Left Area (Top 3 Products + Bottom 2 Detail Cards) */}
           <div className="md:col-span-9 lg:col-span-10 flex flex-col gap-3 sm:gap-4">
             
-            {/* Top Row: 3 Product Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+            {/* Top Row: Product Cards (4 Products) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
               {products.map((product) => (
                 <div
                   key={product.id}
-                  className="group relative bg-[#E9E6DE] rounded-none p-4 sm:p-5 flex flex-col justify-between min-h-[380px] sm:min-h-[420px] border border-neutral-700/40 transition-all duration-300 hover:shadow-2xl"
+                  className="group relative bg-[#E9E6DE] rounded-none p-4 sm:p-5 lg:p-3.5 xl:p-5 flex flex-col justify-between min-h-[380px] sm:min-h-[400px] xl:min-h-[420px] border border-neutral-700/40 transition-all duration-300 hover:shadow-2xl"
                 >
                   {/* Card Header: / PRODUCT 01 */}
                   <div className="flex items-center justify-between z-10">
@@ -51,7 +51,7 @@ export const ProductLookbookGrid: React.FC<ProductLookbookGridProps> = ({
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="w-48 h-48 sm:w-56 sm:h-56 object-contain filter contrast-105 drop-shadow-lg group-hover/img:scale-110 transition-transform duration-500"
+                      className="w-44 h-44 sm:w-52 sm:h-52 lg:w-40 lg:h-40 xl:w-52 xl:h-52 object-contain filter contrast-105 drop-shadow-lg group-hover/img:scale-110 transition-transform duration-500"
                     />
 
                     {/* Quick view hover pill */}
@@ -69,15 +69,15 @@ export const ProductLookbookGrid: React.FC<ProductLookbookGridProps> = ({
                   </div>
 
                   {/* Card Footer: Metadata + Signal Orange Square Cart Button */}
-                  <div className="flex items-end justify-between pt-3 border-t border-[#131313]/15 z-10">
-                    <div>
+                  <div className="flex items-end justify-between pt-3 border-t border-[#131313]/15 z-10 gap-2">
+                    <div className="min-w-0 flex-1">
                       <h3 
                         onClick={() => onOpenProduct(product)}
-                        className="font-oswald text-base sm:text-lg font-bold text-[#131313] tracking-wide uppercase hover:text-[#EB450E] transition-colors cursor-pointer"
+                        className="font-oswald text-sm sm:text-base xl:text-lg font-bold text-[#131313] tracking-wide uppercase hover:text-[#EB450E] transition-colors cursor-pointer leading-tight line-clamp-2"
                       >
                         {product.name}
                       </h3>
-                      <p className="text-[11px] text-[#504718] font-semibold">
+                      <p className="text-[10px] sm:text-[11px] text-[#504718] font-semibold mt-0.5 truncate">
                         {product.subtitle}
                       </p>
                     </div>
@@ -86,7 +86,7 @@ export const ProductLookbookGrid: React.FC<ProductLookbookGridProps> = ({
                     <button
                       onClick={() => onAddToCart(product)}
                       aria-label={`Adicionar ${product.name} à sacola`}
-                      className="w-11 h-11 bg-[#EB450E] hover:bg-[#131313] text-white flex items-center justify-center transition-colors duration-200 cursor-pointer shadow-md active:scale-95"
+                      className="w-10 h-10 sm:w-11 sm:h-11 shrink-0 bg-[#EB450E] hover:bg-[#131313] text-white flex items-center justify-center transition-colors duration-200 cursor-pointer shadow-md active:scale-95"
                     >
                       <ShoppingBag className="w-5 h-5 stroke-[2]" />
                     </button>

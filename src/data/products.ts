@@ -11,7 +11,7 @@ export const PRODUCTS: Product[] = [
     category: 'Five Panel',
     colorName: 'Modern Black',
     colorHex: '#131313',
-    image: '/assets/crops/bone-five-ancora.png',
+    image: '/assets/crops/bone-five-ancora-02.jpg',
     secondaryImage: '/assets/crops/cap_detail_patch.png',
     badge: 'DROP PRINCIPAL',
     description: 'O clássico Five Panel MODERN.SURF confeccionado em tactel crinkle de alta tecnologia. Extremamente leve (apenas 58g), repelente à água e de secagem ultrarrápida. Detalhe frontal da corda náutica branca trançada e patch emborrachado selado.',
@@ -36,7 +36,7 @@ export const PRODUCTS: Product[] = [
     colorName: 'Bone Off-White',
     colorHex: '#E9E6DE',
     image: '/assets/crops/bone_logo_bone.png',
-    secondaryImage: '/assets/cropsbone_back_fexo.png',
+    secondaryImage: '/assets/crops/bone_back_fexo.png',
     badge: 'ESTOQUE LIMITADO',
     description: 'Tonalidade Bone orgânica com acabamento acetinado fosco. Desenvolvido para dias de sol intenso, refletindo o calor e mantendo a cabeça fresca graças à respirabilidade natural da trama de tactel.',
     specs: [
@@ -54,6 +54,7 @@ export const PRODUCTS: Product[] = [
     name: 'FIVE PANEL TACTEL SIGNAL ORANGE',
     subtitle: 'Laranja de Destaque / High Visibility',
     price: 80,
+    originalPrice: 220,
     category: 'Five Panel',
     colorName: 'Orange',
     colorHex: '#E45826',
@@ -66,6 +67,29 @@ export const PRODUCTS: Product[] = [
       'Estrutura desestruturada anatômica 5-panel',
       'Aba curva suave ou reta personalizável',
       'Resistente a vincos e compressão em mochilas de surf'
+    ],
+    inStock: true
+  },
+  {
+    id: 'five-panel-acid-lime',
+    code: 'PRODUCT 04',
+    name: 'FIVE PANEL TACTEL ACID LIME',
+    subtitle: 'Verde Vibrante / High Energy',
+    price: 80,
+    originalPrice: 220,
+    category: 'Five Panel',
+    colorName: 'Acid Lime',
+    colorHex: '#D3FE89',
+    image: '/assets/crops/bone_logo_acid_lime.png',
+    secondaryImage: '/assets/crops/bone_back_fexo.png',
+    badge: 'NOVO DROP',
+    description: 'A energia eletrizante da tonalidade Acid Lime combinada com a leveza incomparável do tactel crinkle. Detalhe frontal da corda náutica branca trançada e patch MODERN em alto relevo.',
+    specs: [
+      'Tactel 100% Poliamida Crinkle Hydro-Repellent',
+      'Pigmentação Acid Lime vibrante com alta solidez contra sal e sol',
+      'Corda náutica frontal branca trançada de alta densidade',
+      'Fecho traseiro em fita de nylon com fivela de engate em metal fosco',
+      'Peso ultraleve de apenas 58g com secagem rápida'
     ],
     inStock: true
   }
@@ -117,7 +141,7 @@ export const LOOKBOOK_ITEMS = [
     title: 'LOOK 01 - THE SURF COMMUTE',
     subtitle: 'Five Panel Preto + Boardshort e Camisa de Linho',
     season: 'MODERN.SURF · SANTOS - BR',
-    image: '/public/assets/crops/cap_five_panel_front.png',
+    image: '/assets/crops/cap_five_panel_front.png',
     productFeatured: 'PRODUCT 01'
   },
   {
@@ -125,7 +149,7 @@ export const LOOKBOOK_ITEMS = [
     title: 'LOOK 02 - SUN DRENCHED BONE',
     subtitle: 'Five Panel Bone em Sessão de Pôr do Sol',
     season: 'MODERN.SURF · SANTOS - BR',
-    image: '/public/assets/crops/cap_detail_patch.png',
+    image: '/assets/crops/cap_detail_patch.png',
     productFeatured: 'PRODUCT 02'
   },
   {
@@ -133,7 +157,15 @@ export const LOOKBOOK_ITEMS = [
     title: 'LOOK 03 - SIGNAL VISIBILITY',
     subtitle: 'Laranja de Destaque no Pontal de Santos',
     season: 'MODERN.SURF · SANTOS - BR',
-    image: '/public/assets/crops/bone_back_fexo.png',
+    image: '/assets/crops/bone_back_fexo.png',
     productFeatured: 'PRODUCT 03'
+  },
+  {
+    id: 'look-4',
+    title: 'LOOK 04 - ACID LIME ENERGY',
+    subtitle: 'Verde Vibrante em Sessão de Final de Tarde',
+    season: 'MODERN.SURF · SANTOS - BR',
+    image: '/assets/crops/bone_logo_acid_lime.png',
+    productFeatured: 'PRODUCT 04'
   }
 ];
