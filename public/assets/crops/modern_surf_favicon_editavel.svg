@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <title>MODERN.SURF — Favicon</title>
+  <desc>Ícone editável com fundo verde-lima, círculo preto, letra m cursiva e estrela.</desc>
+  <rect id="fundo" x="0" y="0" width="512" height="512" rx="76" fill="#D3FE89"/>
+  <circle id="circulo" cx="256" cy="256" r="145" fill="#131313"/>
+  <text id="letra-m" x="249" y="292" fill="#D3FE89" font-family="Georgia, 'Times New Roman', serif" font-size="176" font-style="italic" text-anchor="middle">m</text>
+  <path id="estrela" d="M354 164 L369 194 L399 209 L369 224 L354 254 L339 224 L309 209 L339 194 Z" fill="#D3FE89"/>
+</svg>
