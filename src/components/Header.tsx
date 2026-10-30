@@ -1,5 +1,6 @@
 import React from 'react';
 import { ShoppingBag, Menu, X } from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { ModernSurfLogo } from './ModernSurfLogo.tsx';
 
 interface HeaderProps {
@@ -10,6 +11,7 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ cartCount, onOpenCart, onNavigate }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <header className="sticky top-0 z-40 bg-[#E9E6DE]/95 backdrop-blur-md border-b border-[#131313]/15 transition-all duration-300">
@@ -84,49 +86,79 @@ export const Header: React.FC<HeaderProps> = ({ cartCount, onOpenCart, onNavigat
           >
             <ShoppingBag className="w-5 h-5 stroke-[2]" />
             {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-[#EB450E] text-white text-[10px] font-black w-4 h-4 rounded-full flex items-center justify-center animate-pulse">
+              <motion.span
+                key={cartCount}
+                initial={{ transform: shouldReduceMotion ? 'none' : 'scale(1.22)' }}
+                animate={{ transform: shouldReduceMotion ? 'none' : 'scale(1)' }}
+                transition={{ duration: 0.16, ease: [0.23, 1, 0.32, 1] }}
+                className="absolute -top-1 -right-1 bg-[#EB450E] text-white text-[10px] font-black w-4 h-4 rounded-full flex items-center justify-center font-mono-code"
+              >
                 {cartCount}
-              </span>
+              </motion.span>
             )}
           </button>
         </div>
       </div>
 
       {/* Mobile Menu Dropdown */}
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-[#E9E6DE] border-b border-[#131313]/20 px-6 py-5 space-y-4 font-bold tracking-[0.2em] text-xs uppercase">
-          <button
-            onClick={() => { onNavigate('hero'); setMobileMenuOpen(false); }}
-            className="block w-full text-left py-2 hover:text-[#EB450E]"
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{
+              transform: shouldReduceMotion ? 'none' : 'translateY(-8px)',
+              opacity: 0,
+            }}
+            animate={{
+              transform: shouldReduceMotion ? 'none' : 'translateY(0px)',
+              opacity: 1,
+              transition: {
+                duration: shouldReduceMotion ? 0.12 : 0.19,
+                ease: [0.23, 1, 0.32, 1], // --ease-out
+              },
+            }}
+            exit={{
+              transform: shouldReduceMotion ? 'none' : 'translateY(-8px)',
+              opacity: 0,
+              transition: {
+                duration: shouldReduceMotion ? 0.10 : 0.15,
+                ease: [0.23, 1, 0.32, 1],
+              },
+            }}
+            className="md:hidden bg-[#E9E6DE] border-b border-[#131313]/20 px-6 py-5 space-y-4 font-bold tracking-[0.2em] text-xs uppercase"
           >
-            INÍCIO
-          </button>
-          <button
-            onClick={() => { onNavigate('collection'); setMobileMenuOpen(false); }}
-            className="block w-full text-left py-2 hover:text-[#EB450E]"
-          >
-            FIVE PANEL TACTEL
-          </button>
-          <button
-            onClick={() => { onNavigate('quality'); setMobileMenuOpen(false); }}
-            className="block w-full text-left py-2 hover:text-[#EB450E]"
-          >
-            QUALIDADE & DETALHES
-          </button>
-          <button
-            onClick={() => { onNavigate('brand-story'); setMobileMenuOpen(false); }}
-            className="block w-full text-left py-2 hover:text-[#EB450E]"
-          >
-            SOBRE A MARCA
-          </button>
-          <button
-            onClick={() => { onNavigate('footer'); setMobileMenuOpen(false); }}
-            className="block w-full text-left py-2 hover:text-[#EB450E]"
-          >
-            CONTATO
-          </button>
-        </div>
-      )}
+            <button
+              onClick={() => { onNavigate('hero'); setMobileMenuOpen(false); }}
+              className="block w-full text-left py-2 hover:text-[#EB450E]"
+            >
+              INÍCIO
+            </button>
+            <button
+              onClick={() => { onNavigate('collection'); setMobileMenuOpen(false); }}
+              className="block w-full text-left py-2 hover:text-[#EB450E]"
+            >
+              FIVE PANEL TACTEL
+            </button>
+            <button
+              onClick={() => { onNavigate('quality'); setMobileMenuOpen(false); }}
+              className="block w-full text-left py-2 hover:text-[#EB450E]"
+            >
+              QUALIDADE & DETALHES
+            </button>
+            <button
+              onClick={() => { onNavigate('brand-story'); setMobileMenuOpen(false); }}
+              className="block w-full text-left py-2 hover:text-[#EB450E]"
+            >
+              SOBRE A MARCA
+            </button>
+            <button
+              onClick={() => { onNavigate('footer'); setMobileMenuOpen(false); }}
+              className="block w-full text-left py-2 hover:text-[#EB450E]"
+            >
+              CONTATO
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

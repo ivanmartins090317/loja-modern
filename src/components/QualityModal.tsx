@@ -1,5 +1,6 @@
 import React from 'react';
 import { X, Droplets, Wind, ShieldCheck, Award, Scissors, Compass } from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 
 interface QualityModalProps {
   isOpen: boolean;
@@ -12,7 +13,7 @@ export const QualityModal: React.FC<QualityModalProps> = ({
   onClose,
   onExploreProducts,
 }) => {
-  if (!isOpen) return null;
+  const shouldReduceMotion = useReducedMotion();
 
   const craftsmanshipPillars = [
     {
@@ -38,10 +39,42 @@ export const QualityModal: React.FC<QualityModalProps> = ({
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10">
-      <div onClick={onClose} className="fixed inset-0 bg-neutral-950/80 backdrop-blur-xs" />
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.20, ease: [0.23, 1, 0.32, 1] }}
+            onClick={onClose}
+            className="fixed inset-0 bg-neutral-950/80 backdrop-blur-xs"
+          />
 
-      <div className="relative w-full max-w-3xl bg-[#E9E6DE] shadow-2xl border border-[#131313]/30 z-10 overflow-hidden flex flex-col max-h-[90vh]">
+          <motion.div
+            initial={{
+              opacity: 0,
+              transform: shouldReduceMotion ? 'none' : 'scale(0.96)',
+            }}
+            animate={{
+              opacity: 1,
+              transform: shouldReduceMotion ? 'none' : 'scale(1)',
+              transition: {
+                duration: shouldReduceMotion ? 0.14 : 0.20,
+                ease: [0.23, 1, 0.32, 1], // --ease-out
+              },
+            }}
+            exit={{
+              opacity: 0,
+              transform: shouldReduceMotion ? 'none' : 'scale(0.98)',
+              transition: {
+                duration: shouldReduceMotion ? 0.14 : 0.15,
+                ease: [0.77, 0, 0.175, 1], // --ease-in-out
+              },
+            }}
+            style={{ transformOrigin: 'center' }}
+            className="relative w-full max-w-3xl bg-[#E9E6DE] shadow-2xl border border-[#131313]/30 z-10 overflow-hidden flex flex-col max-h-[90vh]"
+          >
         
         {/* Header */}
         <div className="px-6 py-5 border-b border-[#131313]/20 flex items-center justify-between bg-white">
@@ -105,7 +138,9 @@ export const QualityModal: React.FC<QualityModalProps> = ({
           </div>
         </div>
 
-      </div>
+      </motion.div>
     </div>
+  )}
+</AnimatePresence>
   );
 };

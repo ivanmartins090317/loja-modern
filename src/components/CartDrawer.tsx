@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, Trash2, Plus, Minus, ShoppingBag, ShieldCheck, Check } from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { CartItem, DiscountCode } from '../types/index.ts';
 import {
   calculateSubtotal,
@@ -30,8 +31,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   const [discount, setDiscount] = useState<DiscountCode | null>(null);
   const [promoError, setPromoError] = useState('');
   const [isCheckingOut, setIsCheckingOut] = useState(false);
-
-  if (!isOpen) return null;
+  const shouldReduceMotion = useReducedMotion();
 
   const subtotal = calculateSubtotal(items);
   const shipping = calculateShipping(subtotal);
@@ -91,15 +91,43 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end">
-      {/* Backdrop */}
-      <div
-        onClick={onClose}
-        className="fixed inset-0 bg-neutral-950/70 backdrop-blur-xs transition-opacity"
-      />
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-50 flex justify-end">
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.24, ease: [0.23, 1, 0.32, 1] }}
+            onClick={onClose}
+            className="fixed inset-0 bg-neutral-950/70 backdrop-blur-xs"
+          />
 
-      {/* Drawer Panel */}
-      <div className="relative w-full max-w-md bg-[#E9E6DE] h-full shadow-2xl flex flex-col z-10 border-l border-[#131313]/30">
+          {/* Drawer Panel */}
+          <motion.div
+            initial={{
+              transform: shouldReduceMotion ? 'none' : 'translateX(100%)',
+              opacity: shouldReduceMotion ? 0 : 1,
+            }}
+            animate={{
+              transform: shouldReduceMotion ? 'none' : 'translateX(0%)',
+              opacity: 1,
+              transition: {
+                duration: shouldReduceMotion ? 0.15 : 0.32,
+                ease: [0.32, 0.72, 0, 1], // --ease-drawer
+              },
+            }}
+            exit={{
+              transform: shouldReduceMotion ? 'none' : 'translateX(100%)',
+              opacity: shouldReduceMotion ? 0 : 1,
+              transition: {
+                duration: shouldReduceMotion ? 0.15 : 0.26,
+                ease: [0.32, 0, 0.67, 0],
+              },
+            }}
+            className="relative w-full max-w-md bg-[#E9E6DE] h-full shadow-2xl flex flex-col z-10 border-l border-[#131313]/30"
+          >
         
         {/* Header */}
         <div className="px-6 py-5 border-b border-[#131313]/20 flex items-center justify-between bg-white">
@@ -296,7 +324,9 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             </div>
           </div>
         )}
-      </div>
+      </motion.div>
     </div>
+  )}
+</AnimatePresence>
   );
 };

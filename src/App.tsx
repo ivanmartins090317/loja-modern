@@ -19,8 +19,10 @@ import { PRODUCTS } from './data/products.ts';
 import { Product, CartItem } from './types/index.ts';
 import { calculateItemCount } from './utils/cart.ts';
 import { Check } from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 
 export default function App() {
+  const shouldReduceMotion = useReducedMotion();
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
     try {
       const saved = localStorage.getItem('modern_surf_cart');
@@ -105,6 +107,43 @@ export default function App() {
           <span>{toastMessage}</span>
         </div>
       )}
+      <AnimatePresence>
+        {toastMessage && (
+          <motion.div
+            initial={{
+              opacity: 0,
+              transform: shouldReduceMotion
+                ? 'none'
+                : 'translateY(12px) scale(0.96)',
+            }}
+            animate={{
+              opacity: 1,
+              transform: shouldReduceMotion
+                ? 'none'
+                : 'translateY(0px) scale(1)',
+              transition: {
+                duration: shouldReduceMotion ? 0.14 : 0.22,
+                ease: [0.23, 1, 0.32, 1], // --ease-out
+              },
+            }}
+            exit={{
+              opacity: 0,
+              transform: shouldReduceMotion
+                ? 'none'
+                : 'translateY(8px) scale(0.98)',
+              transition: {
+                duration: shouldReduceMotion ? 0.12 : 0.18,
+                ease: [0.77, 0, 0.175, 1], // --ease-in-out
+              },
+            }}
+            className="fixed bottom-6 right-6 z-50 bg-[#131313] text-white px-4 py-3 shadow-2xl border-2 border-[#EB450E] flex items-center gap-3 font-mono-code text-xs font-bold tracking-wider uppercase"
+          >
+            <span className="w-2 h-2 rounded-full bg-[#D3FE89] animate-ping" />
+            <Check className="w-4 h-4 text-[#D3FE89]" />
+            <span>{toastMessage}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Top Header Navigation */}
       <Header

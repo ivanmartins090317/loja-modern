@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Sparkles, ArrowRight, Check } from 'lucide-react';
+import { motion } from 'motion/react';
 import { Product } from '../types/index.ts';
 import { COLORWAYS_LIST } from '../data/products.ts';
 
@@ -44,11 +45,14 @@ export const FeatureLooksSection: React.FC<FeatureLooksSectionProps> = ({
             {/* Center: Model & Cap Display with Color Swatches */}
             <div className="relative my-4 md:my-0 flex flex-col justify-center items-center z-10">
               <div className="relative w-64 sm:w-72 md:w-80 aspect-square flex items-center justify-center p-4">
-                <img
+                <motion.img
                   key={activeColor.name}
                   src={activeColor.image}
                   alt={`Boné Five Panel MODERN.SURF na cor ${activeColor.name}`}
-                  className="w-full h-full object-contain filter drop-shadow-2xl hover:scale-105 transition-all duration-300 animate-fadeIn"
+                  initial={{ opacity: 0.3 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
+                  className="w-full h-full object-contain filter drop-shadow-2xl hover:scale-105 transition-transform duration-200"
                 />
               </div>
 

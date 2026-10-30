@@ -1,5 +1,6 @@
 import React from 'react';
 import { X, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { LOOKBOOK_ITEMS, PRODUCTS } from '../data/products.ts';
 import { Product } from '../types/index.ts';
 
@@ -14,13 +15,45 @@ export const LookbookModal: React.FC<LookbookModalProps> = ({
   onClose,
   onSelectProduct,
 }) => {
-  if (!isOpen) return null;
+  const shouldReduceMotion = useReducedMotion();
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10">
-      <div onClick={onClose} className="fixed inset-0 bg-neutral-950/85 backdrop-blur-sm" />
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.20, ease: [0.23, 1, 0.32, 1] }}
+            onClick={onClose}
+            className="fixed inset-0 bg-neutral-950/85 backdrop-blur-sm"
+          />
 
-      <div className="relative w-full max-w-5xl bg-[#131313] text-white shadow-2xl border border-neutral-700 z-10 overflow-hidden flex flex-col max-h-[92vh]">
+          <motion.div
+            initial={{
+              opacity: 0,
+              transform: shouldReduceMotion ? 'none' : 'scale(0.96)',
+            }}
+            animate={{
+              opacity: 1,
+              transform: shouldReduceMotion ? 'none' : 'scale(1)',
+              transition: {
+                duration: shouldReduceMotion ? 0.14 : 0.20,
+                ease: [0.23, 1, 0.32, 1], // --ease-out
+              },
+            }}
+            exit={{
+              opacity: 0,
+              transform: shouldReduceMotion ? 'none' : 'scale(0.98)',
+              transition: {
+                duration: shouldReduceMotion ? 0.14 : 0.15,
+                ease: [0.77, 0, 0.175, 1], // --ease-in-out
+              },
+            }}
+            style={{ transformOrigin: 'center' }}
+            className="relative w-full max-w-5xl bg-[#131313] text-white shadow-2xl border border-neutral-700 z-10 overflow-hidden flex flex-col max-h-[92vh]"
+          >
         
         {/* Header */}
         <div className="px-6 py-5 border-b border-neutral-800 flex items-center justify-between bg-neutral-950">
@@ -100,7 +133,9 @@ export const LookbookModal: React.FC<LookbookModalProps> = ({
           })}
         </div>
 
-      </div>
+      </motion.div>
     </div>
+  )}
+</AnimatePresence>
   );
 };
